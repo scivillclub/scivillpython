@@ -177,14 +177,12 @@ print('1부터 100까지의 합 : %d' %sum)
 # range() 간격 설정
 for i in range(1, 10, 2):
     print(i)
-
 ## range(1, 10, 2)는 1부터 10 직전까지 2씩 증가한다.
 ## 1, 3, 5, 7, 9가 출력된다.
 
 # range()를 이용한 역순 반복
 for i in range(10, 0, -1):
     print(i)
-
 ## -1을 사용하면 숫자를 1씩 감소시키며 반복할 수 있다.
 ## 10부터 1까지 출력된다.
 
@@ -192,7 +190,6 @@ for i in range(10, 0, -1):
 for i in range(2, 4):
     for j in range(1, 10):
         print(i, "X", j, "=", i * j)
-
 ## for문 안에 또 다른 for문을 사용할 수 있다.
 ## 이를 중첩 반복문이라고 한다.
 
@@ -205,7 +202,6 @@ for i in range(a,b+1):
 ## input()을 이용하여 원하는 숫자를 입력받아 쓸 수 있다.
 
 # while True 기초와 break를 이용한 반복 종료
-
 while True:
     password = input("비밀번호를 입력하세요: ")
 
@@ -215,8 +211,8 @@ while True:
 
 ## while True는 조건이 항상 참이기 때문에 계속 반복된다.
 ## break는 반복문을 즉시 종료한다.
-# while True:
-#    print("계속 반복됩니다.") -> 이 경우 "계속 반복됩니다." 가 무한히 출력된다."
+## while True:
+##   print("계속 반복됩니다.") -> 이 경우 "계속 반복됩니다." 가 무한히 출력된다."
 
 # while문 반복 횟수 정하기
 count = 1
