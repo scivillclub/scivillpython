@@ -17,6 +17,25 @@ file.close()
 ## encoding="utf-8"은 파일을 UTF-8 방식으로 저장하고 읽도록 지정한다.
 
 
+# 파일 접근 방식
+file = open("mode.txt", "w", encoding="utf-8")
+file.write("첫 번째 내용\n")
+file.close()
+
+file = open("mode.txt", "a", encoding="utf-8")
+file.write("뒤에 덧붙인 내용\n")
+file.close()
+
+file = open("mode.txt", "r", encoding="utf-8")
+print(file.read())
+file.close()
+## 파일 객체 = open("파일 경로", "파일 접근 방식") 의 형태로 파일을 연다.
+## "w"는 쓰기 모드로, 파일이 없으면 만들고 있으면 기존 내용을 지우고 새로 쓴다.
+## "a"는 추가 모드로, 기존 내용을 그대로 두고 뒤에 이어서 쓴다.
+## "r"은 읽기 모드로, 파일의 내용을 읽어 온다. 파일이 없으면 오류가 발생한다.
+## 파일을 다 쓰고 나면 close()로 닫아야 내용이 제대로 저장된다.
+
+
 # 여러 줄을 파일에 저장하기
 file = open("students.txt", "w", encoding="utf-8")
 
@@ -27,6 +46,18 @@ file.write("철수\n")
 file.close()
 ## \n은 줄을 바꾸는 줄바꿈 문자이다.
 ## write()를 여러 번 사용하여 여러 내용을 파일에 저장할 수 있다.
+
+
+# 여러 줄 한 번에 쓰기 - writelines()
+file = open("members.txt", "w", encoding="utf-8")
+
+members = ["민수\n", "영희\n", "철수\n"]
+file.writelines(members)
+
+file.close()
+## writelines()는 리스트에 담긴 여러 줄을 한 번에 파일에 쓴다.
+## write()를 여러 번 부르는 대신 리스트로 한 번에 저장할 수 있다.
+## writelines()는 줄바꿈을 자동으로 넣어 주지 않으므로 값마다 \n을 직접 넣어야 한다.
 
 
 # 파일 읽기
@@ -272,3 +303,91 @@ print("전체 평균:", average)
 ## 저장한 CSV 파일을 다시 읽어 리스트에 저장한다.
 ## 반복문을 이용하여 모든 학생의 점수를 더하고 평균을 계산한다.
 ## DAY1의 입력과 변수, DAY3의 반복문, DAY4의 리스트, DAY6의 파일 처리를 함께 이용한 예제이다.
+
+
+# ==============================
+# 12. 클래스
+# ==============================
+
+
+# 클래스 만들기
+class Student:
+    def __init__(self, name, score):
+        self.name = name
+        self.score = score
+## 클래스는 서로 관련 있는 값과 기능을 하나로 묶어 두는 틀이다.
+## class 클래스이름: 의 형태로 만들며, 클래스 이름은 보통 대문자로 시작한다.
+## __init__()은 객체를 만들 때 자동으로 실행되는 함수이다.
+## self는 만들어진 객체 자신을 가리키며, 첫 번째 매개변수로 항상 적는다.
+## self.name = name 은 객체 안에 name이라는 값을 저장한다는 뜻이다.
+
+
+# 객체 만들기
+student1 = Student("민수", 90)
+
+print(student1.name)
+print(student1.score)
+## 클래스이름(값) 형태로 객체를 만든다.
+## 객체 안에 저장된 값은 객체이름.값이름 으로 꺼내 쓴다.
+## 클래스는 틀이고, 객체는 그 틀로 실제로 만들어 낸 것이다.
+
+
+# 메서드 만들기
+class Student:
+    def __init__(self, name, score):
+        self.name = name
+        self.score = score
+
+    def introduce(self):
+        print("이름:", self.name, "점수:", self.score)
+
+student1 = Student("민수", 90)
+student1.introduce()
+## 클래스 안에 만든 함수를 메서드라고 한다.
+## 메서드도 첫 번째 매개변수로 self를 적는다.
+## 메서드 안에서는 self.값이름 으로 객체에 저장된 값을 사용할 수 있다.
+## 객체이름.메서드이름() 형태로 메서드를 부른다.
+
+
+# 객체 여러 개 만들기
+students = [Student("민수", 90), Student("영희", 85), Student("철수", 78)]
+
+total = 0
+
+for student in students:
+    student.introduce()
+
+    total = total + student.score
+
+print("평균:", total / len(students))
+## 같은 클래스로 서로 다른 객체를 얼마든지 만들 수 있다.
+## 각 객체는 자기만의 값을 따로 가지므로 서로 영향을 주지 않는다.
+## 객체를 리스트에 담으면 반복문으로 하나씩 다룰 수 있다.
+## DAY4의 리스트, DAY5의 함수를 클래스와 함께 이용한 예제이다.
+
+
+# ==============================
+# 13. 교과서 예제
+# ==============================
+
+
+# 이벤트 참여 명단
+print('우리 가게를 이용해 주셔서 감사합니다. 이벤트에 참여해 주세요!')
+name = input('성명을 입력해 주세요.>> ')
+number = input('전화번호를 입력해 주세요.>> ')
+mail = input('메일 주소를 입력해 주세요.>> ')
+print('참여해 주셔서 감사합니다. 안녕히 가세요.')
+
+file = open('event.txt', 'a', encoding='UTF-8')
+file.write('성명: ' + name + '\t 전화번호: ' + number + '\t 메일 주소: ' + mail + '\n')
+file.close()
+
+event = open('event.txt', 'r', encoding='UTF-8')
+print('<현재까지 참여 명단>')
+print(event.read())
+event.close()
+## 참여자에게 이름과 전화번호, 메일 주소를 입력받아 event.txt 파일에 이어서 저장한다.
+## 파일 객체 file은 "a" 모드로 열었기 때문에 앞서 참여한 사람의 기록이 지워지지 않는다.
+## '\t'는 탭 문자로, 항목 사이를 띄워 보기 좋게 만든다.
+## 저장이 끝나면 같은 파일을 "r" 모드로 다시 열어 지금까지의 참여 명단을 모두 출력한다.
+## 하나의 파일을 쓰기와 읽기 두 가지 방식으로 다루는 예제이다.
