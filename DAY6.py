@@ -391,3 +391,23 @@ event.close()
 ## '\t'는 탭 문자로, 항목 사이를 띄워 보기 좋게 만든다.
 ## 저장이 끝나면 같은 파일을 "r" 모드로 다시 열어 지금까지의 참여 명단을 모두 출력한다.
 ## 하나의 파일을 쓰기와 읽기 두 가지 방식으로 다루는 예제이다.
+
+
+# 카페 주문 프로그램
+# cafemenu.csv 파일을 읽고 출력하기
+menufile = open('cafemenu.csv', 'r', encoding = 'UTF-8')   # 메뉴 파일 열기
+print('메뉴 목록입니다. \n', menufile.read())                 # 파일 읽기
+menufile.close()                                           # 파일 닫기
+# 음료 주문 받고 receipt.txt 파일에 주문 내역 저장하기
+order = input('주문하실 음료를 입력해 주세요.')
+quantity = input('몇 잔 주문하시겠습니까?')
+print(order, quantity, '잔 주문 받았습니다.')
+file = open('receipt.txt', 'w', encoding = 'UTF-8')        # 주문 내역 파일 열기
+file.write('주문 내역\n음료:' + order + '\t수량:' + quantity)  # 파일 쓰기
+file.close()                                               # 파일 닫기
+## cafemenu.csv에 저장된 메뉴를 읽어서 손님에게 보여 준다.
+## read()는 파일 전체를 한 번에 읽어 오므로 메뉴 목록이 그대로 출력된다.
+## input()으로 주문할 음료와 잔 수를 입력받는다.
+## receipt.txt를 "w" 모드로 열어 주문 내역을 새로 저장한다.
+## '\n'은 줄바꿈, '\t'는 탭 문자로 영수증을 보기 좋게 만든다.
+## 파일을 읽는 일과 쓰는 일을 한 프로그램에서 함께 다루는 예제이다.
