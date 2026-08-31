@@ -411,3 +411,216 @@ file.close()                                               # 파일 닫기
 ## receipt.txt를 "w" 모드로 열어 주문 내역을 새로 저장한다.
 ## '\n'은 줄바꿈, '\t'는 탭 문자로 영수증을 보기 좋게 만든다.
 ## 파일을 읽는 일과 쓰는 일을 한 프로그램에서 함께 다루는 예제이다.
+
+
+# 약수 구하기
+num = int(input('정수를 입력하세요.: '))
+if num <= 0:
+    print('잘못된 입력입니다.')
+else:
+    print(num, '의 약수: ', end = '')
+    for i in range(1, num + 1):
+        if num % i == 0:
+            print(i, end = ' ')
+## range(1, num + 1)은 1부터 num까지의 숫자를 만든다.
+## num % i == 0 이면 i로 나누어떨어지므로 num의 약수이다.
+## print()에 end = ' '를 주면 줄을 바꾸지 않고 옆으로 이어서 출력한다.
+## 0 이하의 수를 입력하면 약수를 구하지 않고 안내만 출력한다.
+
+
+# 알파벳 개수 찾기
+string = 'Change has a considerable psychological impact on the human mind. To the fearful it is threatening because it means that things may get worse. To the hopeful it is encouraging because things may get better. To the confident it is inspiring because the challenge exists to make things better. - King Whitney Jr. -'
+alphabet = input('검색할 알파벳을 입력해 주세요. ')
+count = 0
+for char in string:
+    if char == alphabet:
+        count = count + 1
+print(alphabet, '의 개수:', count, '개')
+## 문자열도 for문으로 글자를 하나씩 꺼내 올 수 있다.
+## 꺼낸 글자가 찾는 알파벳과 같으면 count를 1씩 늘린다.
+## 대문자와 소문자는 서로 다른 문자로 센다.
+
+
+# 2차원 리스트와 중첩 반복문 - 코드 1
+list_population = [['ROK', 51.6],
+                   ['JPN', 123.3],
+                   ['CHN', 1425.7],
+                   ['TWN', 23.4]]
+
+count1 = 0
+count2 = 0
+for row in list_population:
+    count1 = count1 + 1
+for num in row :
+    print(num, end = " ")
+    count2 = count2 + 1
+print()
+
+print('첫 번째 반복문 실행 횟수:', count1 )
+print('두 번째 반복문 실행 횟수:', count2 )
+## 두 번째 for문이 첫 번째 for문 바깥에 있다.
+## 그래서 첫 번째 반복이 모두 끝난 뒤 마지막 row 하나만 출력된다.
+## count1은 4가 되지만 count2는 2에 그친다.
+
+
+# 2차원 리스트와 중첩 반복문 - 코드 2
+list_population = [['ROK', 51.6],
+                   ['JPN', 123.3],
+                   ['CHN', 1425.7],
+                   ['TWN', 23.4]]
+
+count1 = 0
+count2 = 0
+for row in list_population:
+    count1 = count1 + 1
+    for num in row :
+        print(num, end = " ")
+        count2 = count2 + 1
+    print()
+
+print('첫 번째 반복문 실행 횟수:', count1 )
+print('두 번째 반복문 실행 횟수:', count2 )
+## 두 번째 for문이 첫 번째 for문 안에 들어가 있다. 이것을 중첩 제어 구조라고 한다.
+## 바깥 반복이 한 번 돌 때마다 안쪽 반복이 처음부터 다시 돈다.
+## 그래서 모든 나라가 출력되고 count2는 8이 된다.
+## 들여쓰기 한 칸 차이로 결과가 완전히 달라지므로 주의해야 한다.
+
+
+# 키오스크 매출 계산
+name = ['초코칩', '감자칩', '젤리', '이온 음료', '주스', '생수', '우유']
+prices = [1200, 2000, 900, 1400, 1500, 600, 700]
+quantities = [10, 7, 20, 12, 16, 11, 6]
+product_sales = []
+total_sales = 0
+for i in range(len(name)):
+    sales = prices[i] * quantities[i]
+    product_sales.append(sales)
+print('상품별 매출은 다음과 같습니다.', product_sales, sep = '\n')
+max_sales = max(product_sales)
+max_index = product_sales.index(max_sales)
+max_product = name[max_index]
+print('최대 매출을 낸 상품은', max_product, '입니다.')
+for num in product_sales:
+    total_sales = total_sales + num
+print('총매출은', total_sales, '원입니다.')
+## max()는 리스트에서 가장 큰 값을 돌려준다.
+## index()로 그 값이 몇 번째에 있는지 찾으면 상품명도 알 수 있다.
+## print()에 sep = '\n'을 주면 값 사이를 줄바꿈으로 띄운다.
+## 교과서에서 빈칸으로 둔 부분(반복 범위, 매출 계산, 최댓값 찾기)을 채워 넣은 코드이다.
+
+
+# 상품과 고객 클래스
+class Item:
+    def __init__(self, name, price):
+        self.name = name
+        self.price = price
+
+class Customer:
+    def __init__(self):
+        self.history = []
+        self.total = 0
+
+    def buy(self, item):
+        self.history.append(item)
+        self.total += item.price
+
+milk = Item('우유', 1500)
+bread = Item('빵', 3000)
+
+person1 = Customer()
+person1.buy(milk)
+person1.buy(bread)
+
+for item in person1.history:
+    print(item.name, item.price, '원')
+print('구매 금액 합계:', person1.total, '원')
+## Item은 상품명과 가격을 담는 클래스이다.
+## Customer는 구매 이력(history)과 구매 금액(total)을 가진다.
+## buy()는 구매한 상품을 이력에 추가하고 금액을 더하는 메서드이다.
+## self.total += item.price 는 self.total = self.total + item.price 와 같다.
+## 클래스 두 개가 서로 어울려 하나의 프로그램이 되는 예제이다.
+
+
+# 영양 관리 앱 (읽기용 예제)
+# 이 예제는 실행하지 말고 구조만 읽어 보세요. 아래 설명에 이유가 있습니다.
+import csv
+import tabulate
+
+class Food:
+    def __init__(self, name = None, serving = None, nutri = []):
+        self.name = name
+        self.serving = serving
+        self.nutri = nutri
+
+class User:
+    def __init__(self):
+        self.eaten_food = []
+        self.nutri = []
+
+    def save_food(self, data):
+        self.eaten_food = data
+
+class App:
+    def __init__(self, food_data):
+        self.nutri_name = []
+        self.food_list = []
+        self.nutri_name = food_data[0][2:]
+        for i in range(1, len(food_data)):
+            self.food_list.append(Food(food_data[i][0], food_data[i][1], food_data[i][2:]))
+
+    def open_data(src):
+        file = open(src, 'r', encoding = 'utf-8')
+        result = list(csv.reader(file))
+        return result
+
+    def find_food(self, food_name):
+        result = None
+        for i in self.food_list:
+            if food_name == i.name:
+                result = i
+                break
+        return result
+
+    def calc_food(self, user):
+        for i in range(len(user.eaten_food)):
+            food = self.find_food(user.eaten_food[i][0])
+            if food == None:
+                print(user.eaten_food[i][0], "음식 정보가 없습니다.")
+                continue
+            rate = float(user.eaten_food[i][1]) / float(food.serving)
+            for j in range(len(food.nutri)):
+                if len(user.nutri) < len(food.nutri):
+                    user.nutri.append(float(food.nutri[j]) * rate)
+                else:
+                    user.nutri[j] += float(food.nutri[j]) * rate
+
+    def show_result(user, avg):
+        result = []
+        for i in range(len(avg)):
+            need_nutri = float(avg[i][1]) - user.nutri[i]
+            if need_nutri < 0:
+                need_nutri = 0
+            result.append([avg[i][0], avg[i][1], round(user.nutri[i]), round(need_nutri)])
+        headers = ['영양 성분명', '평균 영양소', '섭취한 영양소', '부족한 영양소']
+        df = tabulate.tabulate(result, headers)
+        print(df)
+
+food_data = App.open_data('food.csv')
+avg = App.open_data('average.csv')[1:]
+app = App(food_data)
+user1 = User()
+user1.save_food(App.open_data('eatenfood.csv'))
+app.calc_food(user1)
+App.show_result(user1, avg)
+## 이 예제는 SCIVILL python IDE 에서 실행되지 않습니다. 코드만 읽어 보세요.
+## 첫째, tabulate 라이브러리를 따로 설치해야 하는데 IDE 에는 들어 있지 않다.
+## 둘째, food.csv · average.csv · eatenfood.csv 세 파일이 있어야 하는데 그 파일이 없다.
+## 그래서 실행하면 ModuleNotFoundError 나 FileNotFoundError 가 난다.
+## Food는 음식 하나의 이름·1회 제공량·영양 성분을 담는 클래스이다.
+## User는 사용자가 먹은 음식과 섭취한 영양 성분을 담는 클래스이다.
+## App은 데이터를 읽고(open_data), 음식을 찾고(find_food), 영양을 더하고(calc_food),
+## 결과를 표로 보여 주는(show_result) 기능을 모아 둔 클래스이다.
+## calc_food는 먹은 양을 1회 제공량으로 나눈 비율만큼 영양 성분을 곱해서 더한다.
+## show_result는 평균 섭취량에서 내가 먹은 양을 빼서 부족한 영양소를 구한다.
+## open_data와 show_result에는 self가 없어서 App.open_data() 처럼 클래스 이름으로 바로 부른다.
+## 클래스 세 개가 각자 맡은 일을 나눠 하나의 앱이 되는 구조를 눈여겨보세요.
